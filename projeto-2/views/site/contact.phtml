@@ -1,0 +1,31 @@
+<?php require VIEWS_PATH . 'includes/header.phtml'; ?>
+<div class="container">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Entre em contato</h1>
+            <p class="col-md-8 fs-4"> Os melhores preços do mercado!</p>
+            <a  href="#form"    class="btn btn-primary btn-lg" >Faça seu orçamento</a>
+        </div>
+    </div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem excepturi recusandae molestias possimus doloribus deleniti ipsa quod, magni aspernatur officiis totam facilis ut hic maiores assumenda aut, asperiores expedita corporis.</p>
+    <form>
+        <div class="mb-3 mt-5" id="form">
+            <label for="exampleInputEmail1" class="form-label">Nome</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">E-mail para contato</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+            <div id="emailHelp" class="form-text">Fique tranquilo, também não gostamos de spam!</div>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Assinar newsletter do mundo da tecnologia</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+
+</div>
+
+<?php require VIEWS_PATH . 'includes/footer.phtml'; ?>

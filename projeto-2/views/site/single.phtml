@@ -1,0 +1,25 @@
+<?php
+
+use Code\Entity\Product;
+
+require VIEWS_PATH . 'includes/header.phtml'; ?>
+
+<div class="container d-flex">
+    <div class="col-md-12 d-flex">
+        <div class="col-md-5 mr-4" style="margin-right: 50px;">
+            <img src="http://via.placeholder.com/640x360?text=<?= $this->product['name']; ?>" class="img-fluid">
+        </div>
+
+        <div class="col-md-5">
+            <h2> <a href="<?= HOME; ?>/product/<?= $this->product['id']; ?>"><?= $this->product['name']; ?></a> </h2>
+            <p><?= $this->product['description']; ?></p>
+            <a href="#" class="btn btn-success" style="color:#FFF; font-size:19px; margin-bottom:20px;">R$ <?= number_format($this->product['price'], decimals: 2); ?></a>
+            <div class="col-lg-6">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt quidem animi quos enim officiis quas dolor?
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php require VIEWS_PATH . 'includes/footer.phtml'; ?>
