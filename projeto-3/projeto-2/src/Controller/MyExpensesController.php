@@ -1,16 +1,25 @@
 <?php 
 namespace Code\Controller;
 
+use Code\Authenticator\CheckUserLogged;
 use Code\DB\Connection;
 use Code\Entity\{Category, Expense, User};
+use Code\Session\Session;
 use Code\View\View;
 
 class MyExpensesController
 {
+    use CheckUserLogged;
+    public function __construct()
+    {
+        if(!$this->check())
+            die('usuarios nao logado');
+    }
     public function index()
     {
+        $userId = Session::get('user')['id'];
         $view = new View('expenses/index.phtml');
-        $view->expenses = (new Expense(Connection::getInstance()))->findAll();
+        $view->expenses = (new Expense(Connection::getInstance()))->where(['users_id' => $userId]);
 
         return $view->render();
     }
@@ -22,6 +31,7 @@ class MyExpensesController
 
         if($method == 'POST') {
             $data = $_POST;
+            $data['users_id'] = Session::get('user')['id'];
             $expense = new Expense($connection);
             $expense->insert(($data));
 

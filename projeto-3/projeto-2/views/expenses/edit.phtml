@@ -30,24 +30,6 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label for="exampleInputPassword1" class="form-label">Usuários</label>
-                    <select name="users_id" class="form-select">
-                        <option>Selectione um usuário</option>
-                        <?php foreach ($this->users as $u): ?>
-                        <option value="<?=$u['id']?>" 
-
-                        <?php if($u['id'] == $this->expense['users_id']):?>
-                            selected
-                        <?php endif;?> 
-                        ><?=$u['name']?></option>
-
-
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
                 <div class="form-group">
                     <label for="exampleInputPassword1" class="form-label">Descrição</label>
                     <textarea name="description" id="" cols="30" rows="5" class="form-control" value="<?=$this->expense['description']?>"></textarea>

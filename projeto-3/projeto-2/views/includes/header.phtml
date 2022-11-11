@@ -25,11 +25,19 @@
             <a href="<?= HOME; ?>/myexpenses" class="nav-link px-2 link-dark">Minhas despesas</a>
         </li>
 
+        <li>
+            <a href="<?= HOME; ?>/myexpenses/new" class="nav-link px-2 link-dark">Criar nova despesa</a>
+        </li>
     </ul>
 
     <div class="col-md-3 text-end" style="display:hidden ;">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Crie sua conta</button>
+    <?php if(\Code\Session\Session::has('user')) : ?>
+        <a href="<?= HOME; ?>/auth/logout" class="btn btn-outline-primary me-2">Sair</a>    
+    <?php endif;?>
+
+        <a href="<?= HOME; ?>/auth/login" 
+        class="btn btn-outline-primary me-2 <?php if(\Code\Session\Session::has('user')) : ?> d-none<?php endif;?>"
+        >Login</a>    
     </div>
 </header>
 
