@@ -13,7 +13,8 @@ class MyExpensesController
     public function __construct()
     {
         if(!$this->check())
-            die('usuarios nao logado');
+            return header("Location: " . HOME . '/auth/login');
+
     }
     public function index()
     {
