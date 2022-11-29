@@ -1,0 +1,65 @@
+<?php require VIEWS_PATH . 'includes/header.phtml'; ?>
+
+<div class="container">
+    <div class="col-md-12">
+        <h1>MyPosts - <small>Editar postagem</small></h1>
+        <hr>
+    </div>
+    <div class="col-md-12">
+        <form method="POST" action="<?= HOME; ?>/posts/edit/<?= $this->post['id'] ?>">
+
+            <div class="col-md-12">
+                <?php require VIEWS_PATH . 'includes/messages.phtml'; ?>
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="title" class="form-label">Título</label>
+                <input type="text" name="title" class="form-control" value="<?= $this->post['title']; ?>">
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="description" class="form-label">Descrição</label>
+                <textarea name="description" class="form-control" cols="12" rows="2"> <?= $this->post['description']; ?> </textarea>
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="content" class="form-label">Conteúdo</label>
+                <textarea name="content" class="form-control" cols="12" rows="5"> <?= $this->post['content']; ?> </textarea>
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="type" class="form-label">Tipo</label>
+                <select name="type" class="form-select">
+                    <option value="">Selecine o tipo</option>
+                    <option value="post" <?php if ($this->post['type'] == 'post') : ?> selected <?php endif; ?>>Post</option>
+                    <option value="page" <?php if ($this->post['type'] == 'page') : ?> selected <?php endif; ?>>Página</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1" class="form-label">Categoria</label>
+                <select name="categories_id" class="form-select">
+                    <option>Selecione uma categoria</option>
+                    <!-- <option value="1">Teste</option> -->
+                    <?php foreach ($this->categories as $category) : ?>
+                        <option value="<?= $category['id'] ?>" <?php if ($category['id'] == $this->post['categories_id']) : ?> selected <?php endif; ?>><?= $category['name'] ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="type" class="form-label">Autor</label>
+                <select name="users_id" class="form-select">
+                    <option value="">Selecine o autor</option>
+                    <?php foreach ($this->users as $user) : ?>
+                        <option value="<?= $user['id']; ?>" <?php if ($user['id'] == $this->post['users_id']) : ?> selected <?php endif; ?>><?= $user['first_name'] . ' ' . $user['last_name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg mt-2">Salvar</button>
+        </form>
+    </div>
+</div>
+
+<?php require VIEWS_PATH . 'includes/footer.phtml'; ?>

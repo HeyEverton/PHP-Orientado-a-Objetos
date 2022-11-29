@@ -1,0 +1,45 @@
+<?php require VIEWS_PATH . 'includes/header.phtml'; ?>
+
+<div class="container">
+    <div class="col-md-12">
+        <h1>MyPosts - <small>Cadastrar Novo Usuário</small></h1>
+        <hr>
+    </div>
+    <div class="col-md-12">
+        <form method="POST" action="<?= HOME; ?>/users/new">
+
+            <div class="col-md-12">
+                <?php require VIEWS_PATH . 'includes/messages.phtml'; ?>
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="first_name" class="form-label">Nome</label>
+                <input type="text" name="first_name" class="form-control">
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="last_name" class="form-label">Sobrenome</label>
+                <input type="text" name="last_name" class="form-control">
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="username" class="form-label">Nome de usuário</label>
+                <input type="text" name="username" class="form-control">
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="slug" class="form-label">Senha</label>
+                <input type="password" name="password" class="form-control">
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="slug" class="form-label">Confirmar senha</label>
+                <input type="password" name="confirm_password" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg mt-2">Enviar</button>
+        </form>
+    </div>
+</div>
+
+<?php require VIEWS_PATH . 'includes/footer.phtml'; ?>

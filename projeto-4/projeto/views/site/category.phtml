@@ -1,0 +1,41 @@
+<?php
+
+use Code\Entity\Product;
+
+require VIEWS_PATH . 'includes/header.phtml'; ?>
+
+<div class="container">
+    <div class="col-md-12">
+        <h1>Todos os posts sobre <?= $this->category ?></h1>
+        <hr>
+        <div class="col-md-7 pull-left">
+            <!-- <?php foreach ($this->posts as $post) : ?>
+                <div class="row">
+                    <h2>$post['']</h2>
+                </div>
+
+            <?php endforeach; ?> -->
+
+            <div class="row">
+                <?php foreach ($this->posts as $post) : ?>
+                    <div class="card" style="width: 18rem;margin-right:20px;">
+                        <img src="https://via.placeholder.com/30x30" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <small class="text-center">
+                                Criado em <?= date('d/M/Y H:i:s', strtotime($post['created_at'])); ?>
+                            </small>
+                            <h5 class="card-title"><?= $post['title'] ?> </h5>
+                            <p class="card-text"> <?= $post['description'] ?> </p>
+                            <a href="<?= HOME . '/post/' . $post['slug'] ?>" class="btn btn-primary">Ver mais</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<?php require VIEWS_PATH . 'includes/footer.phtml'; ?>

@@ -1,0 +1,44 @@
+<?php require VIEWS_PATH . 'includes/header.phtml'; ?>
+
+<div class="container">
+    <div class="col-md-12">
+        <h1>MyPosts - <small>Todas as Postagens</small>
+        <a href="<?= HOME; ?>/posts/new" class="btn btn-primary" style="margin-left: 450px;">Criar Novo Post </a>
+        </h1>
+        <hr>
+    </div>
+
+    <div class="col-md-12">
+        <?php require VIEWS_PATH . 'includes/messages.phtml'; ?>
+    </div>
+
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Título</th>
+                    <th>Criado em</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php foreach ($this->posts as $post) : ?>
+                    <tr>
+                        <td><?= $post['id']; ?></td>
+                        <td><?= $post['title']; ?></td>
+                        <td><?= date('d/m/Y H:i:s', strtotime($post['created_at'])); ?></td>
+                        <td>
+                            <a href="<?= HOME ?>/posts/edit/<?= $post['id']; ?>" class="btn btn-primary">Editar</a>
+
+                            <a href="<?= HOME ?>/posts/remove/<?= $post['id']; ?>" class="btn btn-danger">Excluir</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?php require VIEWS_PATH . 'includes/footer.phtml'; ?>
