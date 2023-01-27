@@ -1,0 +1,49 @@
+<?php require VIEWS_PATH . 'admin/includes/header.phtml'; ?>
+
+<div class="container">
+    <div class="col-md-12 mt-4">
+        <h1>AdminLoja - <small>Editar Usuário</small></h1>
+        <hr>
+    </div>
+    <div class="col-md-12">
+        <form method="POST" action="<?= HOME; ?>/admin/users/edit/<?= $this->user['id'] ?>">
+
+            <div class="col-md-12">
+                <?php require VIEWS_PATH . 'includes/messages.phtml'; ?>
+            </div>
+
+            <div class="col-md-12">
+                <?php require VIEWS_PATH . 'includes/messages.phtml'; ?>
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="first_name" class="form-label">Nome</label>
+                <input type="text" name="first_name" class="form-control" value="<?= $this->user['first_name']; ?>">
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="last_name" class="form-label">Sobrenome</label>
+                <input type="text" name="last_name" class="form-control" value="<?= $this->user['last_name']; ?>">
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="text" name="email" class="form-control" value="<?= $this->user['email']; ?>">
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="slug" class="form-label">Senha</label>
+                <input type="password" name="password" class="form-control" placeholder="se você quiser alterar a senha, preencha o campo">
+            </div>
+
+            <div class="mb-2 form-group" id="form">
+                <label for="slug" class="form-label">Confirmar senha</label>
+                <input type="password" name="password_confirm" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg mt-2">Salvar</button>
+        </form>
+    </div>
+</div>
+
+<?php require VIEWS_PATH . 'admin/includes/footer.phtml'; ?>

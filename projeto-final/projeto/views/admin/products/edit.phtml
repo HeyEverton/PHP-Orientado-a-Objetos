@@ -1,0 +1,105 @@
+<?php require VIEWS_PATH . 'admin/includes/header.phtml'; ?>
+
+<div class="container">
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h2>Editar Produto</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <?php require VIEWS_PATH . 'includes/messages.phtml'; ?>
+    </div>
+
+    <div class="row">
+        <form action="<?= HOME; ?>/admin/products/edit/<?= $this->product['id'] ?>" method="POST" enctype="multipart/form-data">
+            <div class="col-md-12 mt-2">
+                <div class="form-group">
+                    <label for="name">Nome do Produto</label>
+                    <input type="text" name="name" class="form-control" value="<?= $this->product['name'] ?>">
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-2">
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <input type="text" name="description" class="form-control" value="<?= $this->product['description'] ?>">
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-2">
+                <div class="form-group">
+                    <label for="content">Conteúdo</label>
+                    <textarea name="content" rows="3" class="form-control"><?= $this->product['content'] ?></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mt-2">
+                        <div class="form-group">
+                            <label for="price">Preço</label>
+                            <input type="text" name="price" class="form-control" value="<?= number_format($this->product['price'], 2, ',', '.'); ?>">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mt-2">
+                        <label for="is_active">Status do Produto</label>
+                        <select name="is_active" class="form-control">
+                            <option value="">Selecione o Status</option>
+                            <option value="1" <?php if ($this->product['is_active']) : ?> selected <?php endif; ?>>Ativo</option>
+                            <option value="0" <?php if (!$this->product['is_active']) : ?> selected <?php endif; ?>>Inativo</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 mt-2">
+                        <label for="categories">Selecione as Categorias</label>
+                        <select name="categories[]" class="form-control" multiple>
+                            <?php foreach ($this->categories as $category) : ?>
+                                <option value="<?= $category['id']; ?>" <?php if (in_array($category['id'], $this->productCategories)) : ?> selected <?php endif; ?>>
+                                    <?= $category['name']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="images">Foto do Produto</label>
+                            <input type="file" name="images[]" multiple class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mt-3">
+                <button type="submit" class="btn btn-primary btn-lg">Atualizar Produto</button>
+            </div>
+        </form>
+    </div>
+
+    <!--fechamento row inputs-->
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <h3>Imagens do produto</h3>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <?php foreach ($this->product['images'] as $key => $image) : ?>
+            <div class="col-md-4 text-center">
+                <img class="img-fluid card" src="<?= HOME; ?>/uploads/products/<?= $image['image']; ?>" alt="Imagens do produto <?= $this->product['name'] ?>">
+                <a href="<?= HOME; ?>/admin/images/remove/<?= $image['id'] ?>" class="btn btn-sm btn-danger mt-2 mb-3"> Remover Imagem</a>
+            </div>
+            <?php if (($key + 1) % 3 == 0) : ?>
+
+    </div>
+    <div class="row">
+    <?php endif; ?>
+<?php endforeach; ?>
+
+    </div>
+
+    <?php require VIEWS_PATH . 'admin/includes/footer.phtml'; ?>
