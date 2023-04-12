@@ -6,8 +6,13 @@ use \PDO;
 
 abstract class Entity
 {
+    /**
+     * @var PDO
+     */
     protected $conn;
+
     protected $table;
+
     protected $timestamps = true;
 
     public function __construct(\PDO $conn)
@@ -26,55 +31,59 @@ abstract class Entity
 
     public function find(int $id, $fields = '*'): array
     {
-        return current($this->where(['id' => $id], '', $fields));
+        return $this->where(['id' => $id], '', $fields);
     }
 
     public function where(array $conditions, $operator = ' AND ', $fields = '*'): array
     {
         $sql = 'SELECT ' . $fields . ' FROM ' . $this->table . ' WHERE ';
+
         $binds = array_keys($conditions);
 
-        $where = null;
+        $where  = null;
         foreach ($binds as $v) {
             if (is_null($where)) {
-                $where .= $v . '= :' . $v;
+                $where .= $v . ' = :' . $v;
             } else {
-                $where .= $operator . $v . '= :' . $v;
+                $where .= $operator . $v . ' = :' . $v;
             }
         }
+
         $sql .= $where;
 
         $get = $this->bind($sql, $conditions);
         $get->execute();
 
         if (!$get->rowCount()) {
-            throw new \Exception('Não foi encontrado nenhum registro.');
+            throw new \Exception("Nada encontrado para esta consulta!");
         }
+
+        if ($get->rowCount() == 1) return $get->fetch(\PDO::FETCH_ASSOC);
 
         return $get->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function insert($data)
+    public function insert($data): array
     {
-
         $binds = array_keys($data);
-        $timestampFields = $this->timestamps ? ', created_at, updated_at' : '';
+
+        $timestampFileds = $this->timestamps ? ', created_at, updated_at' : '';
         $timestampValues = $this->timestamps ? ', NOW(), NOW()' : '';
 
-        $sql =  'INSERT INTO ' . $this->table . '(' . implode(', ', $binds) .  $timestampFields . ') VALUES(:' . implode(', :', $binds) . $timestampValues . ')';
-
-
+        $sql = 'INSERT INTO ' . $this->table . '(' . implode(', ', $binds) . $timestampFileds . '
+				) VALUES(:' . implode(', :', $binds) . $timestampValues . ')';
 
         $insert = $this->bind($sql, $data);
+
         $insert->execute();
 
-        return $this->conn->lastInsertId();
+        return $this->find($this->conn->lastInsertId());
     }
 
     public function update($data): bool
     {
         if (!array_key_exists('id', $data)) {
-            throw new \Exception('É preciso informar um ID válido para atualizar um dado');
+            throw new \Exception('É preciso informar um ID válido para update!');
         }
 
         $sql = 'UPDATE ' . $this->table . ' SET ';
@@ -83,11 +92,11 @@ abstract class Entity
         $binds = array_keys($data);
 
         foreach ($binds as $v) {
-            if ($v !== 'id')
-                $set .= is_null($set) ? $v . '= :' . $v : ', ' . $v . '= :' . $v;
+            if ($v !== 'id') {
+                $set .= is_null($set) ? $v . ' = :' . $v : ', ' .  $v . ' = :' . $v;
+            }
         }
-
-        $sql .= $set . ', updated_at = NOW() WHERE  id = :id';
+        $sql .= $set . ', updated_at = NOW() WHERE id = :id';
 
         $update = $this->bind($sql, $data);
 
@@ -116,10 +125,10 @@ abstract class Entity
         $bind = $this->conn->prepare($sql);
 
         foreach ($data as $k => $v) {
-            gettype($v) == 'int' ? $bind->bindValue(':' . $k, $v, PDO::PARAM_INT)
-                : $bind->bindValue(':' . $k, $v, PDO::PARAM_STR);
+            gettype($v) == 'int' ? $bind->bindValue(':' . $k, $v, \PDO::PARAM_INT)
+                : $bind->bindValue(':' . $k, $v, \PDO::PARAM_STR);
         }
 
-        return  $bind;
+        return $bind;
     }
 }
